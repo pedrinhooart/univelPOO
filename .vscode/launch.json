@@ -1,0 +1,108 @@
+// .vscode/launch.json
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Pedro",
+            "request": "launch",
+            "mainClass": "aulas.Pedro",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "JanelaO",
+            "request": "launch",
+            "mainClass": "aulas.JanelaO",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "ExercicioArrayList",
+            "request": "launch",
+            "mainClass": "aulas.ExercicioArrayList",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "TratamentoExcessoes",
+            "request": "launch",
+            "mainClass": "aulas.TratamentoExcessoes",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "MenuPrincipal",
+            "request": "launch",
+            "mainClass": "aulas.MenuPrincipal",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "RepetirNome",
+            "request": "launch",
+            "mainClass": "aulas.RepetirNome",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "WhileTryCalendarGUI",
+            "request": "launch",
+            "mainClass": "aulas.WhileTryCalendarGUI",
+            "projectName": "Pedro ART_8133deb6"
+        },
+        {
+            "type": "java",
+            "name": "WhileTryCalendarGUI",
+            "request": "launch",
+            "mainClass": "aulas.WhileTryCalendarGUI",
+            "projectName": "Pedro ART_3e3a5c88"
+        },
+        {
+            "type": "java",
+            "name": "ifGUI",
+            "request": "launch",
+            "mainClass": "aulas.ifGUI",
+            "projectName": "Pedro ART_3e3a5c88"
+        },
+        {
+            "type": "java",
+            "name": "ifGUI",
+            "request": "launch",
+            "mainClass": "aulas.ifGUI",
+            "projectName": "Pedro ART_7c060b96"
+        },
+        {
+            "type": "java",
+            "name": "EntradaGrafica",
+            "request": "launch",
+            "mainClass": "aulas.EntradaGrafica",
+            "projectName": "Pedro ART_7c060b96"
+        },
+        {
+            "type": "java",
+            "name": "EntradaConsole",
+            "request": "launch",
+            "mainClass": "aulas.EntradaConsole",
+            "projectName": "Pedro ART_7c060b96"
+        },
+        {
+            "type": "java",
+            "name": "Launch HelloWorldGUI (Sem JAR Temp)",
+            "request": "launch",
+            "mainClass": "HelloWorldGUI",
+            "projectName": "PedroART",
+            "vmArgs": [],
+            "classPaths": [
+                "${workspaceFolder}/bin"
+            ],
+            "console": "internalConsole",
+            "stopOnEntry": false
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}
