@@ -1,0 +1,8 @@
+criou arquivo
+
+git add .
+
+git commit -m "fix"
+
+git pull
+
