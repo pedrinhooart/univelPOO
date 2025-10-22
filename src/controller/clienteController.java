@@ -1,5 +1,5 @@
 package controller;
 
-public class clienteController {
+public class ClienteController {
     
 }
