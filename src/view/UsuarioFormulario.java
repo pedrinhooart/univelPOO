@@ -32,17 +32,17 @@ public class UsuarioFormulario extends JDialog {
         txtNome = new JTextField();
         add(txtNome);
 
-        if(usuario == null) {
+        if (usuario == null) {
             add(new JLabel("Senha:"));
             txtSenha = new JPasswordField();
             add(txtSenha);
         }
         add(new JLabel("Tipo:"));
-        cbTipo = new JComboBox<>(new String[]{"Usuario", "Administrador"});
+        cbTipo = new JComboBox<>(new String[] { "Usuario", "Administrador" });
         add(cbTipo);
 
-        add(new JLabel("Ativo"));
-        cbAtivo = new JComboBox<>(new String[]{"Ativo", "Inativo"});
+        add(new JLabel("Ativo:"));
+        cbAtivo = new JComboBox<>(new String[] { "Ativo", "Inativo" });
         add(cbAtivo);
 
         btnSalvar = new JButton("Salvar");
@@ -57,7 +57,7 @@ public class UsuarioFormulario extends JDialog {
 
         btnSalvar.addActionListener(e -> salvarUsuario());
     }
-    
+
     private void salvarUsuario() {
         try {
             String nome = txtNome.getText().trim();
@@ -67,30 +67,42 @@ public class UsuarioFormulario extends JDialog {
             String tipo = tipoSelecionado.equalsIgnoreCase("Administrador") ? "A" : "U";
             String ativo = ativoSelecionado.equalsIgnoreCase("Ativo") ? "T" : "F";
 
-            if(nome.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "O nome não pode estar vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (nome.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nome obrigatório");
                 return;
             }
 
-            if(usuario == null) {
-                String senha = new String(txtSenha.getPassword().trim());
-                if (senha = isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Senha obrigatoria");
+            if (usuario == null) {
+                String senha = new String(txtSenha.getPassword()).trim();
+                if (senha.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "senha obrigatória");
                     return;
                 }
 
                 String senhaHash = gerarHashSHA256(senha);
 
-                Usuario u new Usuario();
+                Usuario u = new Usuario();
                 u.setLogin(nome);
                 u.setSenha(senhaHash);
                 u.setTipo(tipo);
-                u.getAtivo(ativo);
+                u.setAtivo(ativo);
 
                 usuarioDAO.inserir(u);
+
+            } else {
+                usuario.setLogin(nome);
+                usuario.setTipo(tipo);
+                usuario.setAtivo(ativo);
+                usuarioDAO.atualizar(usuario);
             }
-        } else {
-            usuario.setLogin(getName());
+
+            parent.atualizarTabela();
+            dispose();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao salvar usuário: " + ex.getMessage());
         }
     }
+
 }
