@@ -46,5 +46,9 @@ public class Usuario {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAtivo'");
     }
+    public boolean autenticar(Usuario u) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'autenticar'");
+    }
 
 }

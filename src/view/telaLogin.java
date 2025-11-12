@@ -3,6 +3,7 @@ package view;
 import controller.UsuarioController;
 import model.Usuario;
 import util.Mensagem;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -39,22 +40,18 @@ public class TelaLogin extends JFrame {
 
         // ===== BOTÃO ENTRAR =====
         btnEntrar.addActionListener(e -> {
-            String login = txtLogin.getText();
-            String senha = new String(txtSenha.getPassword());
-
-            Usuario usuario = new Usuario();
-            usuario.setLogin(login);
-            usuario.setSenha(senha);
+            String login = txtLogin.getText().trim();
+            String senha = new String(txtSenha.getPassword()).trim();
 
             if (controller.login(login, senha)) {
                 Mensagem.info("Login realizado com sucesso!");
                 Usuario usuario = new Usuario();
                 usuario.setLogin(login);
-                
+
                 dispose();
                 new TelaMenu(usuario).setVisible(true);
             } else {
-                Mensagem.erro("usuario ou senha invalidos");
+                Mensagem.erro("Usuário ou senha inválidos.");
             }
         });
 

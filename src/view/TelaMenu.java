@@ -2,7 +2,6 @@ package view;
 
 import model.Usuario;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class TelaMenu extends JFrame{

@@ -36,4 +36,9 @@ public class Usuario {
         throw new UnsupportedOperationException("Unimplemented method 'setTipo'");
     }
 
+    public Object getSenha() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSenha'");
+    }
+
 }

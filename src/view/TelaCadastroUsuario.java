@@ -2,7 +2,6 @@ package view;
 
 import controller.UsuarioController;
 import util.Mensagem;
-import util.ResultadoCadastro;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +19,7 @@ public class TelaCadastroUsuario extends JFrame {
         setSize(300, 200);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(3, 2, 10, 10));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         add(new JLabel("Novo Usuário:"));
         txtLogin = new JTextField();
@@ -34,18 +34,21 @@ public class TelaCadastroUsuario extends JFrame {
         add(btnSalvar);
 
         btnSalvar.addActionListener(e -> {
-            String login = txtLogin.getText();
-            String senha = new String(txtSenha.getPassword());
+            String login = txtLogin.getText().trim();
+            String senha = new String(txtSenha.getPassword()).trim();
 
-            ResultadoCadastro resultado = controller.cadastrar(login, senha);
+            if (login.isEmpty() || senha.isEmpty()) {
+                Mensagem.erro("Preencha todos os campos.");
+                return;
+            }
 
-            switch (resultado) {
-                case SUCESSO -> {
-                    Mensagem.info("Usuário cadastrado com sucesso!");
-                    dispose();
-                }
-                case USUARIO_EXISTE -> Mensagem.erro("Já existe um usuário com esse nome. Escolha outro!");
-                case ERRO_BANCO -> Mensagem.erro("Erro ao salvar no banco de dados.");
+            boolean sucesso = controller.cadastrar(login, senha);
+
+            if (sucesso) {
+                Mensagem.info("Usuário cadastrado com sucesso!");
+                dispose();
+            } else {
+                Mensagem.erro("Erro ao salvar no banco de dados ou usuário já existe.");
             }
         });
     }

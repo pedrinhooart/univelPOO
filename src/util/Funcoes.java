@@ -1,15 +1,14 @@
 package util;
 
 import java.security.MessageDigest;
-
-import javax.management.RuntimeErrorException;
+import java.nio.charset.StandardCharsets;
 
 public class Funcoes {
-    
-    public static String gerarHashSH256(String senha) {
+
+    public static String gerarHashSHA256(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(senha.getBytes("UTF-8"));
+            byte[] hashBytes = digest.digest(senha.getBytes(StandardCharsets.UTF_8));
 
             StringBuilder sb = new StringBuilder();
             for (byte b : hashBytes) {
@@ -17,7 +16,7 @@ public class Funcoes {
             }
             return sb.toString();
         } catch (Exception e) {
-            throw new RuntimeErrorException(e);
+            throw new RuntimeException("Erro ao gerar hash SHA-256", e);
         }
     }
 }

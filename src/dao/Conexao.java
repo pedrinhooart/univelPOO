@@ -32,4 +32,9 @@ public class Conexao {
             }
         }
     }
+
+    public static Connection conectar() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'conectar'");
+    }
 }
