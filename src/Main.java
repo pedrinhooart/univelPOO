@@ -1,7 +1,9 @@
-import dao.TestaConexao;
+import view.TelaLogin;
 
 public class Main {
     public static void main(String[] args) {
-        new TestaConexao().executar();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new TelaLogin().setVisible(true);
+        });
     }
 }
