@@ -9,8 +9,9 @@ public class Usuario {
     private String dataCriacao;
     private String tipo;
     private String lastLogin;
+    private String ativo; // NOVO: Campo ativo adicionado
 
-    public int getId() {return id; }
+    public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public String getLogin() { return login; }
@@ -21,34 +22,37 @@ public class Usuario {
 
     public String getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(String dataCriacao) { this.dataCriacao = dataCriacao; }
-    public void setUsername(String login) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUsername'");
-    }
 
-    public String getTipo() {return tipo; }
+    public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
-    public static String getPassword() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+
+    public String getLastLogin() { return lastLogin; }
+    public void setLastLogin(String lastLogin) { this.lastLogin = lastLogin; }
+
+    // CORRIGIDO: Implementação do setAtivo
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
-    public String getLastLogin() {return lastLogin;}
-    public void setLastLogin(String lastLogin) {this.lastLogin = lastLogin;}
-    public void setLastLogin(LocalDateTime now) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setLastLogin'");
-    }
-    public void setAtivo(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setAtivo'");
-    }
+    
+    // CORRIGIDO: Implementação do getAtivo
     public String getAtivo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAtivo'");
-    }
-    public boolean autenticar(Usuario u) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'autenticar'");
+        return ativo;
     }
 
+    // CORRIGIDO: Implementação para definir o login (antigo setUsername)
+    public void setUsername(String login) {
+        this.login = login;
+    }
+    
+    // CORRIGIDO: Implementação para setar LastLogin a partir de LocalDateTime
+    public void setLastLogin(LocalDateTime now) {
+        // Converte LocalDateTime para String para armazenar no campo lastLogin
+        this.lastLogin = now.toString();
+    }
+
+    /*
+     * MÉTODOS REMOVIDOS/IGNORADOS POIS ERAM INCORRETOS OU REDUNDANTES:
+     * - public static String getPassword(): Removido por ser estático e redundante (getSenha já existe).
+     * - public boolean autenticar(Usuario u): Removido. A lógica de autenticação deve estar no UsuarioDAO.
+     */
 }
