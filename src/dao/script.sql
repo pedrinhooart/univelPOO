@@ -11,3 +11,10 @@ CREATE TABLE usuarios (
     ativo VARCHAR(1) NOT NULL DEFAULT 'T',
     last_login TIMESTAMP NULL
 );
+
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    preco FLOAT(6,2) DEFAULT 0.00,
+    marca VARCHAR(50)
+);
