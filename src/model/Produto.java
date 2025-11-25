@@ -7,7 +7,8 @@ public class Produto {
     private double preco;
     private String marca;
 
-    // Getter e Setter ID
+    
+
     public int getId() {
         return id;
     }
@@ -15,7 +16,7 @@ public class Produto {
         this.id = id;
     }
 
-    // Getter e Setter nome
+
     public String getNome() {
         return nome;
     }
@@ -23,7 +24,7 @@ public class Produto {
         this.nome = nome;
     }
 
-    // Getter e Setter preco
+    
     public double getPreco() {
         return preco;
     }
@@ -31,11 +32,12 @@ public class Produto {
         this.preco = preco;
     }
 
-    // Getter e Setter marca
     public String getMarca() {
         return marca;
     }
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
+  
 }

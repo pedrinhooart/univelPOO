@@ -4,14 +4,14 @@ import model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaMenu extends JFrame{
-    
+public class TelaMenu extends JFrame {
+
     private final Usuario usuario;
 
     public TelaMenu(Usuario usuario) {
         this.usuario = usuario;
 
-        setTitle("Menu Principal - Usuario: " + usuario.getLogin());
+        setTitle("Menu Principal - Usuário: " + usuario.getLogin());
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -19,7 +19,7 @@ public class TelaMenu extends JFrame{
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menuCadastro = new JMenu("Cadastro");
-        JMenuItem menuUsuario = new JMenuItem("Usuarios");
+        JMenuItem menuUsuario = new JMenuItem("Usuários");
         JMenuItem menuClientes = new JMenuItem("Clientes");
         JMenuItem menuProdutos = new JMenuItem("Produtos");
         menuCadastro.add(menuUsuario);
@@ -40,11 +40,12 @@ public class TelaMenu extends JFrame{
         add(lblSaudacao, BorderLayout.CENTER);
 
         menuUsuario.addActionListener(e -> new UsuarioCRUD().setVisible(true));
-        menuUsuario.addActionListener(e -> new TelaCadastroUsuario().setVisible(true));
-        menuUsuario.addActionListener(e -> new TelaCadastroUsuario().setVisible(true));
+        menuClientes.addActionListener(e -> new TelaCadastroUsuario().setVisible(true));
+        menuProdutos.addActionListener(e -> new ProdutoCRUD().setVisible(true));
 
         sair.addActionListener(e -> {
-            
+            dispose();
+            new TelaLogin().setVisible(true);
         });
     }
 }
