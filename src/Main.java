@@ -1,9 +1,8 @@
-import view.TelaLogin;
+import aulas.MenuPrincipal;
 
 public class Main {
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            new TelaLogin().setVisible(true);
-        });
+        // Lança o Menu Principal da aplicação
+        MenuPrincipal.main(args);
     }
 }
