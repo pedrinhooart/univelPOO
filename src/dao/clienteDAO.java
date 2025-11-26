@@ -4,18 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class clienteDAO {
+public class ClienteDAO { // Nota: A convenção Java sugere ClienteDAO
     
     // Método de exemplo para salvar um cliente no banco
     public boolean salvar(String nome, String cpf) {
-        // CORREÇÃO: Assume que a tabela 'clientes' será criada no script.sql
         String sql = "INSERT INTO clientes (nome, cpf) VALUES (?, ?)"; 
         
-        try (Connection conn = conexao.conectar();
+        // Uso de try-with-resources para garantir que a Connection seja fechada.
+        try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             if (conn == null) {
-                System.out.println("DAO Cliente: Conexão não estabelecida.");
+                System.err.println("DAO Cliente: Conexão não estabelecida.");
                 return false;
             }
 
@@ -31,6 +31,4 @@ public class clienteDAO {
             return false;
         }
     }
-    
-    // Outros métodos de CRUD (buscar, atualizar, deletar) viriam aqui.
 }

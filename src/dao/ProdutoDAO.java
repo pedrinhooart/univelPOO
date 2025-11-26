@@ -1,18 +1,15 @@
 package dao;
 
-import model.Produto;
-import util.ResultadoCadastro;
-
 import java.sql.*;
-import java.time.LocalDateTime; 
-
 import java.util.ArrayList;
 import java.util.List;
+import model.Produto;
+import util.ResultadoCadastro;
 
 public class ProdutoDAO {
 
     public boolean existeProduto(String nomeProduto) {
-        String sql = "SELECT 1 FROM produtos WHERE nome_produto = ?";
+        String sql = "SELECT 1 FROM produtos WHERE nome = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -35,15 +32,15 @@ public class ProdutoDAO {
             return ResultadoCadastro.USUARIO_EXISTE;
         }
 
-        String sql = "INSERT INTO produtos (nome_produto, preco, quantidade, data_cadastro) " + "VALUES (?, ?, ?)";
-
+            String sql = "INSERT INTO produtos (nome, preco, marca, data_cadastro) " + "VALUES (?, ?, ?, ?)";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPreco());
             stmt.setString(3, produto.getMarca());
-
+            stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            
             stmt.executeUpdate();
 
             return ResultadoCadastro.SUCESSO;
@@ -61,7 +58,7 @@ public class ProdutoDAO {
     try (Connection conn = Conexao.conectar();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setInt(1, id);
+        stmt.setInt(1, idProduto);
 
         int r = stmt.executeUpdate();
 
@@ -85,7 +82,7 @@ public List<Produto> listarTodos() {
         while (rs.next()) {
             Produto u = new Produto();
             u.setId(rs.getInt("id"));
-            u.setNome(rs.getString("nome_produto"));
+            u.setNome(rs.getString("nome"));
             u.setMarca(rs.getString("marca"));
             u.setPreco(rs.getDouble("preco"));
             
@@ -112,7 +109,7 @@ public Produto buscarPorId(int id) {
             Produto u = new Produto();
 
             u.setId(rs.getInt("id"));
-            u.setNome(rs.getString("nome_produto"));
+            u.setNome(rs.getString("nome"));
             u.setMarca(rs.getString("marca"));
             u.setPreco(rs.getDouble("preco"));
             
