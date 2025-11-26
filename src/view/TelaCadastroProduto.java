@@ -1,11 +1,10 @@
 package view;
 
 import controller.ProdutoController;
+import java.awt.*;
+import javax.swing.*;
 import util.Mensagem;
 import util.ResultadoCadastro;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class TelaCadastroProduto extends JFrame {
 
@@ -43,7 +42,7 @@ public class TelaCadastroProduto extends JFrame {
             String marca = txtMarca.getText();
             Double preco = Double.parseDouble(txtPreco.getText());
 
-            ResultadoCadastro resultado = controller.cadastrar(nome, marca, preco);
+            ResultadoCadastro resultado = controller.cadastrar(nome, preco, marca);
 
             switch (resultado) {
                 case SUCESSO -> {

@@ -1,14 +1,12 @@
+
 package view;
 
-import model.Usuario;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import dao.UsuarioDAO;
-
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import model.Usuario;
 
 public class UsuarioCRUD extends JFrame {
     private JTable tabelaUsuarios;
@@ -17,18 +15,18 @@ public class UsuarioCRUD extends JFrame {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     public UsuarioCRUD() {
-        setTitle("gerenciamento de ususarios");
+        setTitle("Gerenciamento de Músicas");
         setSize(700, 400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         setLayout(new BorderLayout());
 
-
-        model = new DefaultTableModel(new String[] {"ID", "Nome", "Tipo", "Situação", "Data Criação" }, 0) {
+        model = new DefaultTableModel(new String[]{"ID", "Nome", "Tipo", "Situação", "Data Criação"}, 0) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+
         tabelaUsuarios = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(tabelaUsuarios);
         add(scrollPane, BorderLayout.CENTER);
@@ -47,63 +45,58 @@ public class UsuarioCRUD extends JFrame {
         btnEditar.addActionListener(e -> editarUsuario());
         btnExcluir.addActionListener(e -> excluirUsuario());
 
-        carregarUsuario();
+        carregarUsuarios();
         setVisible(true);
-    }
+}
 
-    private void carregarUsuario() {
+    private void carregarUsuarios() {
         model.setRowCount(0);
         List<Usuario> usuarios = usuarioDAO.listarTodos();
         for (Usuario u : usuarios) {
             String tipoLegivel = u.getTipo().equals("A") ? "Administrador" : "Usuário";
             String ativoLegivel = u.getAtivo().equals("T") ? "Ativo" : "Inativo";
 
-            model.addRow(new Object[] {
-                u.getId(),
-                u.getLogin(),
-                tipoLegivel,
-                ativoLegivel,
-                u.getDataCriacao()
-            });
-
-        }
+        model.addRow(new Object[]{u.getId(), u.getLogin(), tipoLegivel, ativoLegivel, u.getDataCriacao()
+        });
     }
+  }
 
-    private void abrirFormulario(Usuario usuario) {
-        UsuarioFormulario form = new UsuarioFormulario(this, usuario);
-        form.setVisible(true);
-    }
-    private void editarUsuario() {
-        int linha = tabelaUsuarios.getSelectedRow();
-        if (linha >= 0) {
-            int id = (int) model.getValueAt(linha, 0);
-            Usuario usuario = usuarioDAO.buscarPorId(id);
-            abrirFormulario(usuario);
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um usuário para editar!");
-        }
-    }
+  private void abrirFormulario(Usuario usuario) {
+    UsuarioFormulario form = new UsuarioFormulario(this, usuario);
+    form.setVisible(true);
+}
 
-    private void excluirUsuario() {
-        int linha = tabelaUsuarios.getSelectedRow();
-        if (linha >= 0) {
-            int id = (int) model.getValueAt(linha, 0);
-            int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este usuário?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                boolean sucesso = usuarioDAO.excluir(id);
-                if (sucesso) {
-                    carregarUsuario();
-                    JOptionPane.showMessageDialog(this, "Usuario excluido com sucesso!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao excluir usuário!");
-                }
+private void editarUsuario() {
+    int linha = tabelaUsuarios.getSelectedRow();
+    if (linha >= 0) {
+        int id = (int) model.getValueAt(linha, 0);
+        Usuario usuario = usuarioDAO.buscarPorId(id);
+        abrirFormulario(usuario);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecione um usuário para editar.");
+    }
+  }
+
+  private void excluirUsuario() {
+    int linha = tabelaUsuarios.getSelectedRow();
+    if (linha >= 0) {
+        int id = (int) model.getValueAt(linha, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este usuário?");
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean sucesso = usuarioDAO.excluir(id);
+            if (sucesso) {
+                carregarUsuarios();
+                JOptionPane.showMessageDialog(this, "Usuário excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir usuário!");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um usuario para excluir: ");
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecione um usuário para excluir!");
     }
+  }
 
-    public void atualizarTabela(){
-        carregarUsuario();
-    }
+  public void atualizarTabela() {
+    carregarUsuarios();
+  }
 }

@@ -3,7 +3,6 @@ package util;
 import javax.swing.JOptionPane;
 
 public class Mensagem {
-
     public static void info(String msg) {
         JOptionPane.showMessageDialog(null, msg, "Informação", JOptionPane.INFORMATION_MESSAGE);
     }

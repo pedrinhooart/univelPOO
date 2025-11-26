@@ -1,3 +1,4 @@
+// CORRETO
 package util;
 
 public enum ResultadoCadastro {
