@@ -1,11 +1,12 @@
 import view.TelaLogin; // Importa a tela de login corrigida (PascalCase)
-// import aulas.MenuPrincipal; // Removido para não executar o MenuPrincipal
+
+// A classe 'aulas.MenuPrincipal' foi removida para que o Main não dependa da pasta 'aulas'.
 
 public class Main {
     public static void main(String[] args) {
         // Ponto de entrada principal da aplicação.
-        // Inicia o fluxo de login, que é a primeira tela da aplicação fora da pasta 'aulas'.
-        // Isso garante que a aplicação execute a lógica de Controller/DAO/View.
+        // Inicia a Tela de Login, garantindo que o fluxo comece pela camada View/Controller/DAO,
+        // fora da pasta 'aulas'.
         TelaLogin.main(args);
     }
 }

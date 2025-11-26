@@ -40,7 +40,7 @@ public class ProdutoDAO {
             stmt.setDouble(2, produto.getPreco());
             stmt.setString(3, produto.getMarca());
             stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-            
+
             stmt.executeUpdate();
 
             return ResultadoCadastro.SUCESSO;
@@ -123,7 +123,7 @@ public Produto buscarPorId(int id) {
 }
 
 public boolean gravar(Produto p) {
-    String sql = "UPDATE produto SET nome = ?, marca = ?, preco = ? WHERE id = ?";
+    String sql = "UPDATE produtos SET nome = ?, marca = ?, preco = ? WHERE id = ?";
     
     try (Connection conn = Conexao.conectar();
          PreparedStatement stmt = conn.prepareStatement(sql)) {

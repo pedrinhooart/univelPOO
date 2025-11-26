@@ -1,53 +1,65 @@
 package view;
 
-import javax.swing.*;
+import controller.UsuarioController;
 import java.awt.*;
-import controller.UsuarioController; 
+import javax.swing.*;
+import model.Usuario;
+import util.Mensagem;
 
 public class TelaLogin extends JFrame {
-    
-    private final JTextField txtUsuario = new JTextField(15);
-    private final JPasswordField txtSenha = new JPasswordField(15);
-    private final JButton btnLogin = new JButton("Entrar");
+
+    private JTextField txtLogin;
+    private JPasswordField txtSenha;
+    private JButton btnEntrar, btnCadastrar;
+
+    private final UsuarioController controller = new UsuarioController();
 
     public TelaLogin() {
-        super("Login de Usuário"); 
-        
-        setSize(300, 200);
+        setTitle("Login");
+        setSize(300, 220);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        JPanel painel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        setLayout(new GridLayout(4, 2, 10, 10));
 
-        painel.add(new JLabel("Usuário:"));
-        painel.add(txtUsuario);
-        painel.add(new JLabel("Senha:"));
-        painel.add(txtSenha);
-        painel.add(btnLogin);
+        add(new JLabel("Usuário:"));
+        txtLogin = new JTextField();
+        add(txtLogin);
 
-        add(painel);
+        add(new JLabel("Senha:"));
+        txtSenha = new JPasswordField();
+        add(txtSenha);
 
-        // Adiciona o listener para o botão de Login, chamando o método realizarLogin
-        btnLogin.addActionListener(e -> realizarLogin());
-    }
+        btnEntrar = new JButton("Entrar");
+        btnCadastrar = new JButton("Cadastrar");
 
-    private void realizarLogin() {
-        String usuario = txtUsuario.getText();
-        String senha = new String(txtSenha.getPassword());
-        
-        UsuarioController controller = new UsuarioController();
-        
-        if (controller.autenticar(usuario, senha)) {
-            JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose(); 
-            // Em uma aplicação real, aqui você abriria a tela principal.
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro de Login", JOptionPane.ERROR_MESSAGE);
-            txtSenha.setText(""); // Limpa o campo de senha após falha
-        }
+        add(btnEntrar);
+        add(btnCadastrar);
+
+        btnEntrar.addActionListener(e -> {
+            String login = txtLogin.getText();
+            String senha = new String(txtSenha.getPassword());
+
+            if (controller.login(login, senha)) {
+                Mensagem.info("Login realizado com sucesso!");
+
+                Usuario usuario = new Usuario();
+                usuario.setLogin(login);
+
+                dispose();
+                new TelaMenu(usuario).setVisible(true);
+            } else {
+                Mensagem.erro("Usuário ou senha inválidos!");
+            }
+        });
+
+        btnCadastrar.addActionListener(e -> {
+            TelaCadastroUsuario telaCadastro = new TelaCadastroUsuario();
+            telaCadastro.setVisible(true);
+        });
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaLogin().setVisible(true));
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'main'");
     }
 }

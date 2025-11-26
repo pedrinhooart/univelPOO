@@ -67,7 +67,7 @@ public class ProdutoCRUD extends JFrame {
     }
 
     private void abrirFormulario(Produto produto) {
-        ProdutoFormulario form = new ProdutoFormulario(null, produto);
+        ProdutoFormulario form = new ProdutoFormulario(this, produto);
         form.setVisible(true);
     }
 

@@ -1,8 +1,8 @@
 package view;
 
-import model.Usuario;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import model.Usuario;
 
 public class TelaMenu extends JFrame {
 
