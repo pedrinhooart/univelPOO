@@ -51,7 +51,7 @@ public class UsuarioCRUD extends JFrame {
 
     private void carregarUsuarios() {
         model.setRowCount(0);
-        List<Usuario> usuarios = usuarioDAO.listarTodos();
+        List<Usuario> usuarios = usuarioDAO.ListarTodos();
         for (Usuario u : usuarios) {
             String tipoLegivel = u.getTipo().equals("A") ? "Administrador" : "Usuário";
             String ativoLegivel = u.getAtivo().equals("T") ? "Ativo" : "Inativo";
