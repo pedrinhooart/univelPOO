@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Cliente {
@@ -8,6 +9,9 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
+    private String cpf;
+    private LocalDate dataNascimento;
+    private double peso;
     private LocalDateTime dataCadastro;
 
     public int getId() {
@@ -38,13 +42,31 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
-    }
-    public void setDataCadastro(String string) {
-        throw new UnsupportedOperationException("Unimplemented method 'setDataCadastro'");
     }
 }

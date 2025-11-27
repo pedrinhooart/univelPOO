@@ -1,29 +1,32 @@
 package controller;
 
 import dao.ClienteDAO;
+import model.Cliente;
+import util.ResultadoCadastro;
+
+import java.time.LocalDate;
 
 public class ClienteController {
-    
-    // Instancia o DAO (a camada de persistência)
-    private final ClienteDAO dao = new ClienteDAO(); 
 
-    // Exemplo de método: Salvar/Atualizar Cliente.
-    public boolean salvarCliente(String nome, String cpf) {
-        // 1. Validação de dados de entrada
-        if (nome == null || nome.trim().isEmpty()) {
-            System.err.println("Erro no Controller: O nome do cliente é obrigatório.");
-            return false;
-        }
-        
-        // 2. Validação de CPF (utilizando a classe ValidadorCPF)
-        // if (!util.ValidadorCPF.isCPFValido(cpf)) {
-        //     System.err.println("Erro no Controller: CPF inválido.");
-        //     return false;
-        // }
-        
-        // 3. Chamada à camada de persistência (DAO)
-        System.out.println("Controller: Preparando para salvar cliente: " + nome + " - " + cpf);
-        
-        return dao.salvar(nome, cpf); 
+    private final ClienteDAO cDAO = new ClienteDAO();
+
+    public ResultadoCadastro cadastrar(
+            String nome,
+            String telefone,
+            String email,
+            String cpf,
+            LocalDate dataNascimento,
+            double peso
+    ) {
+        Cliente c = new Cliente();
+
+        c.setNome(nome);
+        c.setTelefone(telefone);
+        c.setEmail(email);
+        c.setCpf(cpf);
+        c.setDataNascimento(dataNascimento);
+        c.setPeso(peso);
+
+        return cDAO.inserir(c);
     }
 }

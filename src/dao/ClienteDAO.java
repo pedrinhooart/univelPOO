@@ -4,6 +4,7 @@ import model.Cliente;
 import util.ResultadoCadastro;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,8 @@ public class ClienteDAO {
             return ResultadoCadastro.USUARIO_EXISTE;
         }
 
-        String sql = "INSERT INTO clientes (nome, email, telefone, data_cadastro) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (nome, email, fone, cpf, data_nasc, peso) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -40,7 +42,9 @@ public class ClienteDAO {
             stmt.setString(1, c.getNome());
             stmt.setString(2, c.getEmail());
             stmt.setString(3, c.getTelefone());
-            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setString(4, c.getCpf());
+            stmt.setDate(5, Date.valueOf(c.getDataNascimento()));
+            stmt.setDouble(6, c.getPeso());
 
             stmt.executeUpdate();
             return ResultadoCadastro.SUCESSO;
@@ -81,12 +85,15 @@ public class ClienteDAO {
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
                 c.setEmail(rs.getString("email"));
-                c.setTelefone(rs.getString("telefone"));
+                c.setTelefone(rs.getString("fone"));
+                c.setCpf(rs.getString("cpf"));
 
-                Timestamp ts = rs.getTimestamp("data_cadastro");
-                if (ts != null) {
-                    c.setDataCadastro(ts.toLocalDateTime());
+                Date dt = rs.getDate("data_nasc");
+                if (dt != null) {
+                    c.setDataNascimento(dt.toLocalDate());
                 }
+
+                c.setPeso(rs.getDouble("peso"));
 
                 lista.add(c);
             }
@@ -113,11 +120,13 @@ public class ClienteDAO {
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
                 c.setEmail(rs.getString("email"));
-                c.setTelefone(rs.getString("telefone"));
+                c.setTelefone(rs.getString("fone"));
+                c.setCpf(rs.getString("cpf"));
+                c.setPeso(rs.getDouble("peso"));
 
-                Timestamp ts = rs.getTimestamp("data_cadastro");
-                if (ts != null) {
-                    c.setDataCadastro(ts.toLocalDateTime());
+                Date dt = rs.getDate("data_nasc");
+                if (dt != null) {
+                    c.setDataNascimento(dt.toLocalDate());
                 }
 
                 return c;
@@ -131,7 +140,7 @@ public class ClienteDAO {
     }
 
     public boolean gravar(Cliente c) {
-        String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE id = ?";
+        String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ?, cpf = ?, data_nascimento = ?, peso = ? WHERE id = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -139,7 +148,10 @@ public class ClienteDAO {
             stmt.setString(1, c.getNome());
             stmt.setString(2, c.getEmail());
             stmt.setString(3, c.getTelefone());
-            stmt.setInt(4, c.getId());
+            stmt.setString(4, c.getCpf());
+            stmt.setDate(5, Date.valueOf(c.getDataNascimento()));
+            stmt.setDouble(6, c.getPeso());
+            stmt.setInt(7, c.getId());
 
             stmt.executeUpdate();
             return true;
@@ -148,10 +160,5 @@ public class ClienteDAO {
             System.out.println("Erro ao atualizar cliente: " + e.getMessage());
             return false;
         }
-    }
-
-    public boolean salvar(String nome, String cpf) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'salvar'");
     }
 }

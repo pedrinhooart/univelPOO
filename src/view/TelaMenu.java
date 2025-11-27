@@ -1,8 +1,8 @@
 package view;
 
-import java.awt.*;
-import javax.swing.*;
 import model.Usuario;
+import javax.swing.*;
+import java.awt.*;
 
 public class TelaMenu extends JFrame {
 
@@ -40,7 +40,7 @@ public class TelaMenu extends JFrame {
         add(lblSaudacao, BorderLayout.CENTER);
 
         menuUsuario.addActionListener(e -> new UsuarioCRUD().setVisible(true));
-        menuClientes.addActionListener(e -> new TelaCadastroUsuario().setVisible(true));
+        menuClientes.addActionListener(e -> new ClienteCRUD().setVisible(true));
         menuProdutos.addActionListener(e -> new ProdutoCRUD().setVisible(true));
 
         sair.addActionListener(e -> {

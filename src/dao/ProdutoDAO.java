@@ -32,14 +32,13 @@ public class ProdutoDAO {
             return ResultadoCadastro.USUARIO_EXISTE;
         }
 
-            String sql = "INSERT INTO produtos (nome, preco, marca, data_cadastro) " + "VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO produtos (nome, preco, marca) " + "VALUES (?, ?, ?)";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPreco());
             stmt.setString(3, produto.getMarca());
-            stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 
             stmt.executeUpdate();
 
